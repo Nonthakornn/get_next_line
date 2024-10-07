@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:29:38 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/07 18:30:38 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:42:38 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,29 @@ char	*gnl_strchr(char *str, int ch)
 
 char	*gnl_strjoin(char *str1, char *str2)
 {
-	unsigned int	i;
-	unsigned int	j;
-	char			*res;
+	size_t	i;
+	size_t	j;
+	char	*res;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	res = malloc((gnl_strlen(str1) + gnl_strlen(str2) + 1) * sizeof(char));
-	if ((str1 == NULL) || (str2 == NULL) || (res == NULL))
+	if (!str1)
+	{
+		str1 = (char *)malloc(1 * sizeof(char));
+		str1[0] = '\0';
+	}
+	if (!str1 || !str2)
 		return (NULL);
-	while (str1[i] != '\0')
-	{
-		res[i] = str1[i];
-		i++;
-	}
+	res = malloc(((gnl_strlen(str1) + gnl_strlen(str2)) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	if (str1 != NULL)
+		while (str1[++i] != '\0')
+			res[i] = str1[i];
 	while (str2[j] != '\0')
-	{
 		res[i++] = str2[j++];
-	}
-	res[i] = '\0';
+	res[gnl_strlen(str1) + gnl_strlen(str2)] = '\0';
+	free(str1);
 	return (res);
 }
 
