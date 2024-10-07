@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:29:38 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/06 14:12:23by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:30:38 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*gnl_strjoin(char *str1, char *str2)
 
 	i = 0;
 	j = 0;
-	res = (char *)malloc((gnl_strlen(str1) + gnl_strlen(str2) +  1) * sizeof(char));
+	res = malloc((gnl_strlen(str1) + gnl_strlen(str2) + 1) * sizeof(char));
 	if ((str1 == NULL) || (str2 == NULL) || (res == NULL))
 		return (NULL);
 	while (str1[i] != '\0')
@@ -68,6 +68,7 @@ char	*gnl_strjoin(char *str1, char *str2)
 	return (res);
 }
 
+/*
 int main()
 {
 	// int count = gnl_strlen(NULL);
@@ -80,3 +81,4 @@ int main()
 	// printf("%s", result);
 	// free(result);
 }
+*/
