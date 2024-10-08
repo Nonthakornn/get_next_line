@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:06:18 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/06 16:33:52 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:19:53 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10
 # endif
 
 # include <stdlib.h>
@@ -23,8 +23,13 @@
 # include <stdio.h>
 
 size_t	gnl_strlen(char *str);
+
 char	*gnl_strchr(char *str, int ch);
 char	*gnl_strjoin(char *str1, char *str2);
 
+char	*get_next_line(int fd);
+char	*read_until_newline(int fd, char *buffer);
+char	*extract_line(char *buffer);
+char	*get_remainder(char *buffer);
 
 #endif
