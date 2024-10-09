@@ -19,26 +19,27 @@ until it finds a newline character or reaches the end of the file.
 
 char	*read_until_newline(int fd, char *buffer)
 {
-	char 	*buff;
+	char 	*tmp_buff;
 	int		read_bytes;
 	
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
+	tmp_buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!tmp_buff)
 		return (NULL);
 	read_bytes = 1;
 	//Find new line
 	while (gnl_strchr(buffer, '\n') == NULL && read_bytes != 0)
 	{
-		read_bytes = read(fd, buff, BUFFER_SIZE);
+		//The read function reads up to BUFFER_SIZE bytes from the file descriptor fd and stores them in tmp_buff
+		read_bytes = read(fd, tmp_buff, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
-			free(buff);
+			free(tmp_buff);
 			return (NULL);
 		}
-		buff[read_bytes] = '\0';
-		buffer = gnl_strjoin(buffer, buff);
+		tmp_buff[read_bytes] = '\0';
+		buffer = gnl_strjoin(buffer, tmp_buff);
 	}
-	free(buff);
+	free(tmp_buff);
 	return(buffer);
 }
 
@@ -51,7 +52,7 @@ char	*read_until_newline(int fd, char *buffer)
 
 char	*extract_line(char *buffer)
 {
-	char	*s;
+	char	*line;
 	int		i;
 	
 	i = 0;
@@ -63,34 +64,34 @@ char	*extract_line(char *buffer)
 		i++;
 	//Allocate memory for new line
 	// + 2 -> newline character (if it is exitsts) , another one is for null terminator
-	s = malloc((i + 2) * sizeof(char));
+	line = malloc((i + 2) * sizeof(char));
 	//Check if memory allocation fail
-	if (!s)
+	if (!line)
 		return (NULL);
 	i = 0;
-	//Copy Character from buffer to s
+	//Copy Character from buffer to line
 	while ((buffer[i] != '\0') && buffer[i] != '\n')
 	{
-		s[i] = buffer[i];
+		line[i] = buffer[i];
 		i++;
 	}
 	if (buffer[i] == '\n')
 	{
-		s[i] = buffer[i];
+		line[i] = buffer[i];
 		i++;
 	}
-	s[i] = '\0';
-	return (s);
+	line[i] = '\0';
+	return (line);
 }
 
 char	*get_remainder(char *buffer)
 {
 	int		i;
-	int 	c;
+	int 	j;
 	char	*remain_str;
 
 	i = 0;
-	c = 0;
+	j = 0;
 	// Find the first newline character or the end of the string
 	while ((buffer[i] != '\0') && buffer[i] != '\n')
 		i++;
@@ -106,8 +107,8 @@ char	*get_remainder(char *buffer)
 	//Skip new line character
 	i++;
 	while (buffer[i])
-		remain_str[c++] = buffer[i++];
-	remain_str[c] = '\0';
+		remain_str[j++] = buffer[i++];
+	remain_str[j] = '\0';
 	
 	free(buffer);
 	return (remain_str);

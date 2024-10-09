@@ -11,6 +11,10 @@ int main()
 		perror("Error opening file");
 		return (1);
 	}
+	/*
+	•	read: Returns an integer (ssize_t), so > 0 is valid and correct.
+	•	get_next_line: Returns a pointer (char *), so != NULL is the appropriate check.
+	*/
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
