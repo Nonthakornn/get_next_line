@@ -26,7 +26,8 @@ char	*read_until_newline(int fd, char *buffer)
 	if (!buff)
 		return (NULL);
 	read_bytes = 1;
-	while (!gnl_strchr(buffer, '\n') && read_bytes != 0)
+	//Find new line
+	while (gnl_strchr(buffer, '\n') == NULL && read_bytes != 0)
 	{
 		read_bytes = read(fd, buff, BUFFER_SIZE);
 		if (read_bytes == -1)
