@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:29:38 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/07 23:14:02 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:40:20 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int main()
 	// int count = gnl_strlen(NULL);
 	// printf("%d", count);
 
-	// char *result = gnl_strchr("Hello, Hi", '\0');
-	// printf("%s", result);
+	char *result = gnl_strchr("Hi00s", '\0');
+	printf("%s", result);
 
 	// char *result = gnl_strjoin("Hello", " World!");
 	// printf("%s", result);
