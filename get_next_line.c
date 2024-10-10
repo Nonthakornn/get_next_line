@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:31:25 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/10 11:46:57 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:50:51 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*read_until_newline(int fd, char *buffer)
 {
-	char 	*buff;
+	char 	*tmp_buff;
 	int		read_bytes;
 	
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
+	tmp_buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!tmp_buff)
 		return (NULL);
 	read_bytes = 1;
 	//Find new line
@@ -40,7 +40,7 @@ char	*read_until_newline(int fd, char *buffer)
 		tmp_buff[read_bytes] = '\0';
 		buffer = gnl_strjoin(buffer, tmp_buff);
 	}
-	free(buff);
+	free(tmp_buff);
 	return(buffer);
 }
 
@@ -56,9 +56,9 @@ char	*extract_line(char *buffer)
 		i++;
 	//Allocate memory for new line
 	// + 2 -> newline character (if it is exitsts) , another one is for null terminator
-	s = malloc((i + 2) * sizeof(char));
+	line = malloc((i + 2) * sizeof(char));
 	//Check if memory allocation fail
-	if (!s)
+	if (!line)
 		return (NULL);
 	i = 0;
 	//Copy Character from buffer to s
