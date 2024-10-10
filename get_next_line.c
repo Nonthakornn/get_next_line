@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:31:25 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/10 11:50:51 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:57:04 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,15 @@
 
 char	*read_until_newline(int fd, char *buffer)
 {
-	char 	*tmp_buff;
+	char	*tmp_buff;
 	int		read_bytes;
-	
+
 	tmp_buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!tmp_buff)
 		return (NULL);
 	read_bytes = 1;
-	//Find new line
 	while (gnl_strchr(buffer, '\n') == NULL && read_bytes != 0)
 	{
-		//The read function reads up to BUFFER_SIZE bytes from the file descriptor fd and stores them in tmp_buff
-		/*
-			read()
-			Positive value -> read somedata
-			0 -> EOF
-			-1 -> error
-		*/
 		read_bytes = read(fd, tmp_buff, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
@@ -41,7 +33,7 @@ char	*read_until_newline(int fd, char *buffer)
 		buffer = gnl_strjoin(buffer, tmp_buff);
 	}
 	free(tmp_buff);
-	return(buffer);
+	return (buffer);
 }
 
 char	*extract_line(char *buffer)
@@ -54,14 +46,10 @@ char	*extract_line(char *buffer)
 		return (NULL);
 	while ((buffer[i] != '\0') && buffer[i] != '\n')
 		i++;
-	//Allocate memory for new line
-	// + 2 -> newline character (if it is exitsts) , another one is for null terminator
 	line = malloc((i + 2) * sizeof(char));
-	//Check if memory allocation fail
 	if (!line)
 		return (NULL);
 	i = 0;
-	//Copy Character from buffer to s
 	while ((buffer[i] != '\0') && buffer[i] != '\n')
 	{
 		line[i] = buffer[i];
@@ -76,20 +64,14 @@ char	*extract_line(char *buffer)
 	return (line);
 }
 
-/*
-	Goal: Extract and return the remainder of the buffer after the first newline character (\n). If there is no newline character in the buffer, the function returns NULL and frees the buffer.
-	Use Case: In a line-reading function like get_next_line, after extracting the first line, this function is used to save the remaining content in the buffer for subsequent reads.
-*/
-
 char	*get_remainder(char *buffer)
 {
 	int		i;
-	int 	c;
+	int		j;
 	char	*remain_str;
 
 	i = 0;
-	c = 0;
-	// Find the first newline character or the end of the string
+	j = 0;
 	while ((buffer[i] != '\0') && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\0')
@@ -102,9 +84,8 @@ char	*get_remainder(char *buffer)
 		return (NULL);
 	i++;
 	while (buffer[i])
-		remain_str[c++] = buffer[i++];
-	remain_str[c] = '\0';
-	
+		remain_str[j++] = buffer[i++];
+	remain_str[j] = '\0';
 	free(buffer);
 	return (remain_str);
 }
