@@ -30,6 +30,12 @@ char	*read_until_newline(int fd, char *buffer)
 	while (gnl_strchr(buffer, '\n') == NULL && read_bytes != 0)
 	{
 		//The read function reads up to BUFFER_SIZE bytes from the file descriptor fd and stores them in tmp_buff
+		/*
+			read()
+			Positive value -> read somedata
+			0 -> EOF
+			-1 -> error
+		*/
 		read_bytes = read(fd, tmp_buff, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
@@ -83,6 +89,11 @@ char	*extract_line(char *buffer)
 	line[i] = '\0';
 	return (line);
 }
+
+/*
+	Goal: Extract and return the remainder of the buffer after the first newline character (\n). If there is no newline character in the buffer, the function returns NULL and frees the buffer.
+	Use Case: In a line-reading function like get_next_line, after extracting the first line, this function is used to save the remaining content in the buffer for subsequent reads.
+*/
 
 char	*get_remainder(char *buffer)
 {
