@@ -6,7 +6,7 @@
 /*   By: nchencha <nchencha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 10:29:38 by nchencha          #+#    #+#             */
-/*   Updated: 2024/10/10 11:40:20 by nchencha         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:00:28 by nchencha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char	*gnl_strjoin(char *str1, char *str2)
 	while (str2[j] != '\0')
 		res[i++] = str2[j++];
 	res[gnl_strlen(str1) + gnl_strlen(str2)] = '\0';
-	if (str1[0] == '\0' && gnl_strlen(str1) == 0)
-		free(str1);
+	free(str1);
 	return (res);
 }
 
